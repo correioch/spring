@@ -8,9 +8,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.ch.curso_spring.domain.Category;
+import com.ch.curso_spring.domain.City;
 import com.ch.curso_spring.domain.Product;
+import com.ch.curso_spring.domain.State;
 import com.ch.curso_spring.repositories.CategoryRepository;
+import com.ch.curso_spring.repositories.CityRepository;
 import com.ch.curso_spring.repositories.ProductRepository;
+import com.ch.curso_spring.repositories.StateRepository;
 
 @SpringBootApplication
 public class SpringChApplication implements CommandLineRunner {
@@ -19,7 +23,11 @@ public class SpringChApplication implements CommandLineRunner {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ProductRepository productRepository;
-
+	@Autowired
+	private StateRepository stateRepository;
+	@Autowired
+	private CityRepository cityRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringChApplication.class, args);
 	}
@@ -45,7 +53,18 @@ public class SpringChApplication implements CommandLineRunner {
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
+		State state1 = new State(null, "Ontario");
+		State state2 = new State(null, "Quebec");
 		
+		City city1 = new City(null, "Montreal", state2);
+		City city2 = new City(null, "Toronto", state1);
+		City city3 = new City(null, "Quebec", state2);
+		
+		state1.getCities().addAll(Arrays.asList(city2));
+		state2.getCities().addAll(Arrays.asList(city1, city3));
+
+		stateRepository.saveAll(Arrays.asList(state1, state2));
+		cityRepository.saveAll(Arrays.asList(city1, city2, city3));
 		
 	}
 
