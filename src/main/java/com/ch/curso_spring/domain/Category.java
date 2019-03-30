@@ -20,6 +20,12 @@ public class Category implements Serializable{
 	private int id;
 	private String name;
 	
+	
+	public Category() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Category(int id, String name) {
 		super();
 		this.id = id;
